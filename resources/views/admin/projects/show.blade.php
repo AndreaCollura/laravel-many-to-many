@@ -19,6 +19,14 @@
             <p>Type of framework and language used : <span
                     class="text-warning text-uppercase">{{ $project->type ? $project->type->name : 'No Type' }}</span>
             </p>
+            @if ($project->categories && count($project->categories) > 0)
+                <div>
+                    @foreach ($project->categories as $category)
+                        <a href="{{ route('admin.categories.show', $category->slug) }}"
+                            class="badge rounded-pill text-bg-info">{{ $category->name }}</a>
+                    @endforeach
+                </div>
+            @endif
         </div>
 
 

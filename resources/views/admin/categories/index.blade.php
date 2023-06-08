@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($categories as $category)
+                @foreach ($categories as $category)
                     <tr class="text-center">
                         <td class="text-capitalize">{{ $category->id }}</td>
                         <td class="text-uppercase">{{ $category->name }}</td>
@@ -27,7 +27,7 @@
                                 <i class="fa-solid fa-eye text-black px-1"></i>
                             </a>
                     </tr>
-                @endforeach --}}
+                @endforeach
             </tbody>
         </table>
     </div>

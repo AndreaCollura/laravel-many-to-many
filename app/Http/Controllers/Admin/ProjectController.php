@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Type;
 use App\Models\Category;
 use illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
@@ -89,6 +90,7 @@ class ProjectController extends Controller
             abort(403);
         }
         $types = Type::all();
+        $categories = Category::all();
         return view('admin.projects.edit', compact('project', 'types'));
     }
 
@@ -105,6 +107,10 @@ class ProjectController extends Controller
         $slug = Str::slug($request->title, '-');
         $form_data['slug'] = $slug;
         $project->update($form_data);
+        if ($request->has('categories')) {
+            $project->categories()->sync([]);
+        }
+
         return redirect()->route('admin.projects.show', $project->slug)->with('message', "Project {$project->slug} successfully edited");
     }
 

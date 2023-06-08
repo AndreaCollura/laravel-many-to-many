@@ -15,12 +15,12 @@
         <div class="text-capitalize fw-semibold">
 
 
-            {{-- <h3 class="mb-4">all project with <span class="text-warning text-uppercase">{{ $category->name }}</span>
+            <h3 class="mb-4">all project with <span class="text-warning text-uppercase">{{ $category->name }}</span>
                 category
             </h3>
-            @foreach ($projects as $project)
+            @foreach ($category->projects as $project)
                 <p>{{ $project->title }}</p>
-            @endforeach --}}
+            @endforeach
 
         </div>
 

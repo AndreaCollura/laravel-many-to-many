@@ -69,15 +69,20 @@
                 @enderror
             </div>
             <div class="form-group mt-5">
-                <p class="text-capitalize">add some categories to your project</p>
+                <p class="text-capitalize">edit categories of your project</p>
                 @foreach ($categories as $category)
                     <div>
-                        <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="form-check-input"
-                            {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
+                        @if ($errors->any())
+                            <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="form-check-input"
+                                {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
+                        @else
+                            <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="form-check-input"
+                                {{ $project->categories->contains($category) ? 'checked' : '' }}>
+                        @endif
                         <label for="" class="form-check-label">{{ $category->name }}</label>
                     </div>
                 @endforeach
-                @error('tags')
+                @error('categories')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
