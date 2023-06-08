@@ -91,7 +91,7 @@ class ProjectController extends Controller
         }
         $types = Type::all();
         $categories = Category::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        return view('admin.projects.edit', compact('project', 'types', 'categories'));
     }
 
     /**
@@ -108,6 +108,8 @@ class ProjectController extends Controller
         $form_data['slug'] = $slug;
         $project->update($form_data);
         if ($request->has('categories')) {
+            $project->categories()->sync($request->categories);
+        } else {
             $project->categories()->sync([]);
         }
 
