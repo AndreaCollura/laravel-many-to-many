@@ -70,6 +70,19 @@
                     </div>
                 @enderror
             </div>
+            <div class="form-group mt-5">
+                <p class="text-capitalize">add some categories to your project</p>
+                @foreach ($categories as $category)
+                    <div>
+                        <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="form-check-input"
+                            {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
+                        <label for="" class="form-check-label">{{ $category->name }}</label>
+                    </div>
+                @endforeach
+                @error('tags')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
             <div class="col-12">
                 <button type="submit" class="btn btn-secondary">Create</button>
                 <button type="reset" class="btn btn-secondary">Reset</button>

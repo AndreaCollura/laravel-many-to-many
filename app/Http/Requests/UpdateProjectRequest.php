@@ -33,7 +33,8 @@ class UpdateProjectRequest extends FormRequest
             ],
             'git' => 'required|max:255',
             'date' => 'required',
-            'type_id' => 'nullable|exists:types,id'
+            'type_id' => 'nullable|exists:types,id',
+            'categories' => 'nullable|exists:categories,id'
 
         ];
     }

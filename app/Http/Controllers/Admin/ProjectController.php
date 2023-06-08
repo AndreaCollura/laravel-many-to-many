@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Type;
+use App\Models\Category;
 use illuminate\Support\Str;
 use illuminate\Support\Facades\Auth;
 
@@ -36,8 +37,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
+
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $categories = Category::all();
+        return view('admin.projects.create', compact('categories', 'types'));
     }
 
     /**
@@ -52,8 +55,12 @@ class ProjectController extends Controller
         $slug = Str::slug($form_data['title'], '-');
         $form_data['slug'] = $slug;
         $form_data['user_id'] = Auth::id();
-        $newProject = Project::create($form_data);
-        return redirect()->route('admin.projects.show', $newProject->slug)->with('message', "Project {$newProject->slug} successfully created");
+        $project = Project::create($form_data);
+        if ($request->has('categories')) {
+
+            $project->categories()->attach($request->categories);
+        }
+        return redirect()->route('admin.projects.show', $project->slug)->with('message', "Project {$project->slug} successfully created");
     }
 
     /**
